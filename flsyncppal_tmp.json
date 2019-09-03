@@ -1,0 +1,24 @@
+{
+    "name": "flsyncppal_tmp",
+    "modifications": {
+        "replaceFile": [
+            {
+                "name": "dependencias.json",
+                "path": "config/"
+            }
+        ],
+        "deleteFile": [],
+        "patchScript": [],
+        "patchJson": [
+            {
+                "name": "urls.json",
+                "path": "config/"
+            },
+            {
+                "name": "registros.json",
+                "path": "config/"
+            }
+        ],
+        "addFile": []
+    }
+}
