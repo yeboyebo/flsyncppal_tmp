@@ -21,9 +21,11 @@ class SimpleProductSerializer(DefaultSerializer):
         self.set_string_value("product//attribute_set_id", "4")
         self.set_string_value("product//status", "1")
 
-        is_visibility = "1"
-        if  self.get_init_value("aa.talla") == "TU":
-            is_visibility = "4"
+        # is_visibility = "1"
+        # if  self.get_init_value("aa.talla") == "TU":
+        #     is_visibility = "4"
+
+        is_visibility = "4"
 
         self.set_string_value("product//visibility", is_visibility)
         self.set_string_value("product//type_id", "simple")
@@ -48,10 +50,10 @@ class SimpleProductSerializer(DefaultSerializer):
         custom_attributes = [
             {"attribute_code": "description", "value": large_description},
             {"attribute_code": "short_description", "value": short_description},
-            {"attribute_code": "tax_class_id", "value": "2"},
-            {"attribute_code": "barcode", "value": self.get_init_value("aa.barcode")},
-            {"attribute_code": "size", "value": self.get_init_value("t.indice")}
+            {"attribute_code": "tax_class_id", "value": "2"}
         ]
+            # {"attribute_code": "barcode", "value": self.get_init_value("aa.barcode")},
+            # {"attribute_code": "size", "value": self.get_init_value("t.indice")}
 
         self.set_data_value("product//custom_attributes", custom_attributes)
 
@@ -59,12 +61,15 @@ class SimpleProductSerializer(DefaultSerializer):
 
     def get_sku(self):
         referencia = self.get_init_value("lsc.idobjeto")
-        talla = self.get_init_value("aa.talla")
 
-        if talla == "TU":
-            return referencia
+        return referencia
 
-        return "{}-{}".format(referencia, talla)
+        # talla = self.get_init_value("aa.talla")
+
+        # if talla == "TU":
+        #     return referencia
+
+        # return "{}-{}".format(referencia, talla)
 
     def get_stock(self):
         disponible = self.get_init_value("s.disponible")
