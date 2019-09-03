@@ -12,11 +12,11 @@ from controllers.base.magento2.products.serializers.product_link_serializer impo
 
 class ProductsUpload(UploadSync, ABC):
 
-    product_url = "<host>/rest/{}/V1/products"
-    product_test_url = "<testhost>/rest/{}/V1/products"
+    product_url = "<host>/rest/V1/products"
+    product_test_url = "<testhost>/rest/V1/products"
 
-    link_url = "<host>/rest/all/V1/configurable-products/{}/child"
-    link_test_url = "<testhost>/rest/all/V1/configurable-products/{}/child"
+    link_url = "<host>/rest/all/V1/configurable-products/child"
+    link_test_url = "<testhost>/rest/all/V1/configurable-products/child"
 
     idlinea = None
     idsincro = None
@@ -88,9 +88,9 @@ class ProductsUpload(UploadSync, ABC):
         self.idlinea = idlinea
 
         q = qsatype.FLSqlQuery()
-        q.setSelect("lsc.id, lsc.idsincro, lsc.idobjeto, lsc.descripcion, a.pvp, a.peso, s.disponible, a.mgdescripcion, a.mgdescripcioncorta")
+        q.setSelect("lsc.id, lsc.idsincro, lsc.idobjeto, lsc.descripcion, a.pvp, s.disponible, a.mgdescripcion, a.mgdescripcioncorta")
         q.setFrom("lineassincro_catalogo lsc INNER JOIN articulos a ON lsc.idobjeto = a.referencia LEFT JOIN stocks s ON a.referencia = s.referencia")
-        q.setWhere("lsc.id = {} GROUP BY lsc.id, lsc.idsincro, lsc.idobjeto, lsc.descripcion, a.pvp, a.peso, s.disponible, a.mgdescripcion, a.mgdescripcioncorta".format(self.idlinea))
+        q.setWhere("lsc.id = {} GROUP BY lsc.id, lsc.idsincro, lsc.idobjeto, lsc.descripcion, a.pvp, s.disponible, a.mgdescripcion, a.mgdescripcioncorta".format(self.idlinea))
 
         q.exec_()
 

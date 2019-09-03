@@ -4,6 +4,8 @@ from controllers.base.default.serializers.default_serializer import DefaultSeria
 class ProductLinkSerializer(DefaultSerializer):
 
     def get_data(self):
+        return False
+
         if self.get_init_value("aa.talla") == "TU":
             return False
 

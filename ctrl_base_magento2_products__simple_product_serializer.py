@@ -14,7 +14,7 @@ class SimpleProductSerializer(DefaultSerializer):
             return self.get_serializador_store_es()
 
         self.set_string_relation("product//name", "lsc.descripcion")
-        self.set_string_relation("product//weight", "a.peso")
+        # self.set_string_relation("product//weight", "a.peso")
         self.set_string_relation("product//price", "a.pvp")
 
         self.set_string_value("product//sku", self.get_sku())
