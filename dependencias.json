@@ -1,10 +1,10 @@
 {
+    "fk": "True",
     "dependencias": [
         {
-            "key": "baseparche",
-            "version": "v1.0"
+            "version": "v1.0",
+            "key": "celery"
         }
     ],
-    "fun_aq": null,
-    "fk": "True"
+    "fun_aq": null
 }

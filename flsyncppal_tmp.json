@@ -5,10 +5,35 @@
             {
                 "name": "dependencias.json",
                 "path": "config/"
+            },
+            {
+                "name": "settings.py",
+                "path": "AQNEXT/"
+            },
+            {
+                "name": "wsgi.py",
+                "path": "AQNEXT/"
+            },
+            {
+                "name": "celery.py",
+                "path": "AQNEXT/"
             }
         ],
         "deleteFile": [],
-        "patchScript": [],
+        "patchScript": [
+            {
+                "name": "model_models__models.py",
+                "path": "models/models/"
+            },
+            {
+                "name": "app_portal____init__.py",
+                "path": "apps/portal/"
+            },
+            {
+                "name": "app_portal__views_portal.py",
+                "path": "apps/portal/viewset/"
+            }
+        ],
         "patchJson": [
             {
                 "name": "urls.json",
@@ -17,8 +42,229 @@
             {
                 "name": "registros.json",
                 "path": "config/"
+            },
+            {
+                "name": "app_portal__menu_portal.json",
+                "path": "apps/portal/templates/portal/"
             }
         ],
-        "addFile": []
+        "addFile": [
+            {
+                "name": "ctrl_base_mirakl_drivers__mirakl.py",
+                "path": "controllers/base/mirakl/drivers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_orders__orders_download.py",
+                "path": "controllers/base/mirakl/orders/controllers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_orders__shipping_orders_download.py",
+                "path": "controllers/base/mirakl/orders/controllers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_orders__idl_ecommerce_serializer.py",
+                "path": "controllers/base/mirakl/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_orders__order_payment_serializer.py",
+                "path": "controllers/base/mirakl/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_orders__order_serializer.py",
+                "path": "controllers/base/mirakl/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_orders__order_expensesline_serializer.py",
+                "path": "controllers/base/mirakl/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_orders__order_line_serializer.py",
+                "path": "controllers/base/mirakl/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_orders__order_shippingline_serializer.py",
+                "path": "controllers/base/mirakl/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_orders__ew_ventaseciweb_serializer.py",
+                "path": "controllers/base/mirakl/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_orders__cashcount_serializer.py",
+                "path": "controllers/base/mirakl/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_offers__offers_upload.py",
+                "path": "controllers/base/mirakl/offers/controllers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_returnsvaldemoro__returnsvaldemoro_download.py",
+                "path": "controllers/base/mirakl/returnsvaldemoro/controllers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_returnsvaldemoro__ew_devolucioneseciweb_serializer.py",
+                "path": "controllers/base/mirakl/returnsvaldemoro/serializers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_returns__returns_download.py",
+                "path": "controllers/base/mirakl/returns/controllers/"
+            },
+            {
+                "name": "ctrl_base_mirakl_returns__ew_devolucioneseciweb_serializer.py",
+                "path": "controllers/base/mirakl/returns/serializers/"
+            },
+            {
+                "name": "ctrl_base_store_drivers__psql_store.py",
+                "path": "controllers/base/store/drivers/"
+            },
+            {
+                "name": "ctrl_base_magento_drivers__magento.py",
+                "path": "controllers/base/magento/drivers/"
+            },
+            {
+                "name": "ctrl_base_magento2_drivers__magento2.py",
+                "path": "controllers/base/magento2/drivers/"
+            },
+            {
+                "name": "ctrl_base_magento2_orders__orders_download.py",
+                "path": "controllers/base/magento2/orders/controllers/"
+            },
+            {
+                "name": "ctrl_base_magento2_orders__order_serializer.py",
+                "path": "controllers/base/magento2/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_magento2_orders__order_line_serializer.py",
+                "path": "controllers/base/magento2/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_magento2_orders__order_line_shipping_serializer.py",
+                "path": "controllers/base/magento2/orders/serializers/"
+            },
+            {
+                "name": "ctrl_base_magento2_tierprice__tierprice_upload.py",
+                "path": "controllers/base/magento2/tierprice/controllers/"
+            },
+            {
+                "name": "ctrl_base_magento2_tierprice__tierprice_serializer.py",
+                "path": "controllers/base/magento2/tierprice/serializers/"
+            },
+            {
+                "name": "ctrl_base_magento2_inventory__inventory_upload.py",
+                "path": "controllers/base/magento2/inventory/controllers/"
+            },
+            {
+                "name": "ctrl_base_magento2_inventory__inventory_serializer.py",
+                "path": "controllers/base/magento2/inventory/serializers/"
+            },
+            {
+                "name": "ctrl_base_magento2_products__products_upload.py",
+                "path": "controllers/base/magento2/products/controllers/"
+            },
+            {
+                "name": "ctrl_base_magento2_products__configurable_product_serializer.py",
+                "path": "controllers/base/magento2/products/serializers/"
+            },
+            {
+                "name": "ctrl_base_magento2_products__simple_product_serializer.py",
+                "path": "controllers/base/magento2/products/serializers/"
+            },
+            {
+                "name": "ctrl_base_magento2_products__product_link_serializer.py",
+                "path": "controllers/base/magento2/products/serializers/"
+            },
+            {
+                "name": "ctrl_base_magento2_price__price_upload.py",
+                "path": "controllers/base/magento2/price/controllers/"
+            },
+            {
+                "name": "ctrl_base_magento2_price__price_serializer.py",
+                "path": "controllers/base/magento2/price/serializers/"
+            },
+            {
+                "name": "ctrl_base_magento2_customers__customer_upload.py",
+                "path": "controllers/base/magento2/customers/controllers/"
+            },
+            {
+                "name": "ctrl_base_magento2_customers__customer_serializer.py",
+                "path": "controllers/base/magento2/customers/serializers/"
+            },
+            {
+                "name": "ctrl_base_drupal_drivers__drupal.py",
+                "path": "controllers/base/drupal/drivers/"
+            },
+            {
+                "name": "ctrl_base_default_controllers__download_sync.py",
+                "path": "controllers/base/default/controllers/"
+            },
+            {
+                "name": "ctrl_base_default_controllers__recieve_sync.py",
+                "path": "controllers/base/default/controllers/"
+            },
+            {
+                "name": "ctrl_base_default_controllers__default_sync.py",
+                "path": "controllers/base/default/controllers/"
+            },
+            {
+                "name": "ctrl_base_default_controllers__upload_sync.py",
+                "path": "controllers/base/default/controllers/"
+            },
+            {
+                "name": "ctrl_base_default_controllers__connect_sync.py",
+                "path": "controllers/base/default/controllers/"
+            },
+            {
+                "name": "ctrl_base_default_drivers__web_driver.py",
+                "path": "controllers/base/default/drivers/"
+            },
+            {
+                "name": "ctrl_base_default_drivers__default_driver.py",
+                "path": "controllers/base/default/drivers/"
+            },
+            {
+                "name": "ctrl_base_default_drivers__sql_driver.py",
+                "path": "controllers/base/default/drivers/"
+            },
+            {
+                "name": "ctrl_base_default_serializers__default_serializer.py",
+                "path": "controllers/base/default/serializers/"
+            },
+            {
+                "name": "ctrl_base_default_managers__task_manager.py",
+                "path": "controllers/base/default/managers/"
+            },
+            {
+                "name": "ctrl_api____init__.py",
+                "path": "controllers/api/"
+            },
+            {
+                "name": "ctrl_api_celery_tasks__revoke.py",
+                "path": "controllers/api/celery/tasks/"
+            },
+            {
+                "name": "ctrl_api_celery_activity__get.py",
+                "path": "controllers/api/celery/activity/"
+            },
+            {
+                "name": "model_flsyncppal__flsyncppal_def.py",
+                "path": "models/flsyncppal/"
+            },
+            {
+                "name": "model_flsyncppal__aqmodel_raw.py",
+                "path": "models/flsyncppal/objects/"
+            },
+            {
+                "name": "app_sync____init__.py",
+                "path": "apps/sync/"
+            },
+            {
+                "name": "app_sync__menu_sync.json",
+                "path": "apps/sync/templates/sync/"
+            },
+            {
+                "name": "app_sync__views_sync.py",
+                "path": "apps/sync/viewset/"
+            }
+        ]
     }
 }

@@ -1,3 +1,20 @@
 {
-    "modifications": []
+    "modifications": [
+        {
+            "type": "insertAfterNode",
+            "path": "/portal",
+            "value": {
+                "sync": {}
+            }
+        },
+        {
+            "type": "insertAfterNode",
+            "path": "/sync",
+            "value": {
+                "api": {
+                    "controller": true
+                }
+            }
+        }
+    ]
 }
