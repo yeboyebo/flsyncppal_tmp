@@ -41,40 +41,40 @@ class ProductsUpload(UploadSync, ABC):
         data[0]["stock_disponible"] = self.stock_disponible
         data[0]["store_id"] = "all"
 
-        configurable_product_default = self.get_configurable_product_serializer().serialize(data[0])
-        data[0]["store_id"] = "ES"
-        configurable_product_es = self.get_configurable_product_serializer().serialize(data[0])
-        data[0]["store_id"] = "EN"
-        configurable_product_en = self.get_configurable_product_serializer().serialize(data[0])
+        # configurable_product_default = self.get_configurable_product_serializer().serialize(data[0])
+        # data[0]["store_id"] = "ES"
+        # configurable_product_es = self.get_configurable_product_serializer().serialize(data[0])
+        # data[0]["store_id"] = "EN"
+        # configurable_product_en = self.get_configurable_product_serializer().serialize(data[0])
         simple_products_default = []
-        simple_products_es = []
-        simple_products_en = []
-        product_links = []
+        # simple_products_es = []
+        # simple_products_en = []
+        # product_links = []
 
         for row in data:
             row["store_id"] = "all"
             simple_products_default.append(self.get_simple_product_serializer().serialize(row))
-            row["store_id"] = "ES"
-            simple_products_es.append(self.get_simple_product_serializer().serialize(row))
-            row["store_id"] = "EN"
-            simple_products_en.append(self.get_simple_product_serializer().serialize(row))
-            product_links.append(self.get_product_link_serializer().serialize(row))
+            # row["store_id"] = "ES"
+            # simple_products_es.append(self.get_simple_product_serializer().serialize(row))
+            # row["store_id"] = "EN"
+            # simple_products_en.append(self.get_simple_product_serializer().serialize(row))
+            # product_links.append(self.get_product_link_serializer().serialize(row))
 
-        if not configurable_product_default and not simple_products_default and not product_links:
-            return False
+        # if not configurable_product_default and not simple_products_default and not product_links:
+        #     return False
 
-        if product_links[0] == False:
-            product_links = False
+        # if product_links[0] == False:
+        #     product_links = False
 
 
         return {
-            "configurable_product_default": configurable_product_default,
-            "configurable_product_es": configurable_product_es,
-            "configurable_product_en": configurable_product_en,
+            # "configurable_product_default": configurable_product_default,
+            # "configurable_product_es": configurable_product_es,
+            # "configurable_product_en": configurable_product_en,
             "simple_products_default": simple_products_default,
-            "simple_products_es": simple_products_es,
-            "simple_products_en": simple_products_en,
-            "product_links": product_links,
+            # "simple_products_es": simple_products_es,
+            # "simple_products_en": simple_products_en,
+            # "product_links": [],
         }
 
     def get_db_data(self):
@@ -102,6 +102,8 @@ class ProductsUpload(UploadSync, ABC):
         self.referencia = body[0]["lsc.idobjeto"]
 
         for row in body:
+            if "s.disponible" not in row or row["s.disponible"] is None:
+                row["s.disponible"] = 0
             if row["s.disponible"] > 0:
                 self.stock_disponible = True
 
@@ -120,30 +122,31 @@ class ProductsUpload(UploadSync, ABC):
         product_url = self.product_url if self.driver.in_production else self.product_test_url
         link_url = self.link_url if self.driver.in_production else self.link_test_url
 
-        if data["configurable_product_default"]:
-            self.send_request("post", url=product_url.format("all"), data=json.dumps(data["configurable_product_default"]))
+        # if data["configurable_product_default"]:
+        #     self.send_request("post", url=product_url.format("all"), data=json.dumps(data["configurable_product_default"]))
 
-        if data["configurable_product_es"]:
-            self.send_request("post", url=product_url.format("ES"), data=json.dumps(data["configurable_product_es"]))
+        # if data["configurable_product_es"]:
+        #     self.send_request("post", url=product_url.format("ES"), data=json.dumps(data["configurable_product_es"]))
 
-        if data["configurable_product_en"]:
-            self.send_request("post", url=product_url.format("EN"), data=json.dumps(data["configurable_product_en"]))
+        # if data["configurable_product_en"]:
+        #     self.send_request("post", url=product_url.format("EN"), data=json.dumps(data["configurable_product_en"]))
 
         if data["simple_products_default"]:
             for simple_product in data["simple_products_default"]:
-                self.send_request("post", url=product_url.format("all"), data=json.dumps(simple_product))
+                # self.send_request("post", url=product_url.format("all"), data=json.dumps(simple_product))
+                self.send_request("post", url=product_url, data=json.dumps(simple_product))
 
-        if data["simple_products_es"]:
-            for simple_product in data["simple_products_es"]:
-                self.send_request("post", url=product_url.format("ES"), data=json.dumps(simple_product))
+        # if data["simple_products_es"]:
+        #     for simple_product in data["simple_products_es"]:
+        #         self.send_request("post", url=product_url.format("ES"), data=json.dumps(simple_product))
 
-        if data["simple_products_en"]:
-            for simple_product in data["simple_products_en"]:
-                self.send_request("post", url=product_url.format("EN"), data=json.dumps(simple_product))
+        # if data["simple_products_en"]:
+        #     for simple_product in data["simple_products_en"]:
+        #         self.send_request("post", url=product_url.format("EN"), data=json.dumps(simple_product))
 
-        if data["product_links"]:
-            for product_link in data["product_links"]:
-                self.send_request("post", url=link_url.format(data["configurable_product_default"]["product"]["sku"]), data=json.dumps(product_link))
+        # if data["product_links"]:
+        #     for product_link in data["product_links"]:
+        #         self.send_request("post", url=link_url.format(data["configurable_product_default"]["product"]["sku"]), data=json.dumps(product_link))
 
         return data
 

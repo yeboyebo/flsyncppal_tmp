@@ -8,11 +8,11 @@ class OrderShippingLineSerializer(DefaultSerializer):
 
     def get_data(self):
         pvpunitarioiva = self.init_data["shipping_price"]
-        self.set_string_value("referencia", "0000ATEMP00001")
+        self.set_string_value("referencia", "art1")
         self.set_string_value("descripcion", "Gastos de envío")
-        self.set_string_value("barcode", "8433613403654")
-        self.set_string_value("talla", "TU")
-        self.set_string_value("color", "U")
+        # self.set_string_value("barcode", "8433613403654")
+        # self.set_string_value("talla", "TU")
+        # self.set_string_value("color", "U")
         self.set_data_value("cantidad", 1)
         self.set_string_value("codimpuesto", self.get_codimpuesto(self.init_data["codigo_cliente"], self.init_data["codigo_serie"]), max_characters=10)
         self.set_data_value("ivaincluido", True)
@@ -30,17 +30,18 @@ class OrderShippingLineSerializer(DefaultSerializer):
 
     def get_codimpuesto(self, codigo_cliente, codigo_serie):
         codimpuesto = False
-        if codigo_cliente:
-            codimpuesto = qsatype.FLUtil.quickSqlSelect("gruposcontablesivaneg INNER JOIN clientes ON gruposcontablesivaneg.codgrupoivaneg = clientes.codgrupoivaneg", "gruposcontablesivaneg.codimpuestodefecto", "clientes.codcliente = '{}'".format(codigo_cliente), "gruposcontablesivaneg,clientes")
-            print(codimpuesto)
+        # if codigo_cliente:
+        #     codimpuesto = qsatype.FLUtil.quickSqlSelect("gruposcontablesivaneg INNER JOIN clientes ON gruposcontablesivaneg.codgrupoivaneg = clientes.codgrupoivaneg", "gruposcontablesivaneg.codimpuestodefecto", "clientes.codcliente = '{}'".format(codigo_cliente), "gruposcontablesivaneg,clientes")
+        #     print(codimpuesto)
 
-        if not codimpuesto:
-            codimpuesto = qsatype.FLUtil.quickSqlSelect("series", "codimpuesto", "codserie = '{}'".format(codigo_serie))
+        # if not codimpuesto:
+        #     codimpuesto = qsatype.FLUtil.quickSqlSelect("series", "codimpuesto", "codserie = '{}'".format(codigo_serie))
 
-        if not codimpuesto:
-            codimpuesto = qsatype.FLUtil.quickSqlSelect("articulos", "codimpuesto", "referencia = '{}'".format(self.get_referencia()))
+        # if not codimpuesto:
+        #     codimpuesto = qsatype.FLUtil.quickSqlSelect("articulos", "codimpuesto", "referencia = '{}'".format(self.get_referencia()))
 
         if not codimpuesto:
             codimpuesto = "GEN"
 
         return codimpuesto
+

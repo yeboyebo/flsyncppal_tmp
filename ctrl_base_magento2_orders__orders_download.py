@@ -5,13 +5,16 @@ from controllers.base.magento2.drivers.magento2 import Magento2Driver
 from controllers.base.default.controllers.download_sync import DownloadSync
 from controllers.base.magento2.orders.serializers.order_serializer import OrderSerializer
 
-from models.flfact_tpv.objects.ordersb2b_raw import OrdersB2B
+from models.flfacturac.objects.order_raw import Order
 
 
 class OrdersDownload(DownloadSync, ABC):
 
-    orders_url = "<host>/rest/V1/unsynchronized/orders/"
-    orders_test_url = "<testhost>/rest/V1/unsynchronized/orders/"
+    orders_url = "<host>/index.php/rest/V1/unsynchronized/orders/"
+    orders_test_url = "<testhost>/index.php/rest/V1/unsynchronized/orders/"
+
+    synchronized_url = "<host>/index.php/rest/default/V1/orders/{}/synchronized"
+    synchronized_test_url = "<testhost>/index.php/rest/default/V1/orders/{}/synchronized"
 
     def __init__(self, process_name, params=None):
         super().__init__(process_name, Magento2Driver(), params)
@@ -22,7 +25,7 @@ class OrdersDownload(DownloadSync, ABC):
             self.error_data.append(data)
             return False
 
-        order = OrdersB2B(order_data)
+        order = Order(order_data)
         order.save()
 
         return True
@@ -47,8 +50,8 @@ class OrdersDownload(DownloadSync, ABC):
 
     def after_sync(self):
         self.set_sync_params({
-            "url": "http://b2b.elganso.com/index.php/rest/default/V1/orders/{}/synchronized",
-            "test_url": "http://magento2.local/index.php/rest/default/V1/orders/{}/synchronized"
+            "url": self.synchronized_url,
+            "test_url": self.synchronized_test_url
         })
 
         success_records = []
@@ -68,12 +71,13 @@ class OrdersDownload(DownloadSync, ABC):
                 after_sync_error_records.append(order["increment_id"])
 
         if success_records:
-            self.log("Éxito", "Los siguientes pedidos B2B se han sincronizado correctamente: {}".format(success_records))
+            self.log("Éxito", "Los siguientes pedidos se han sincronizado correctamente: {}".format(success_records))
 
         if error_records:
-            self.log("Error", "Los siguientes pedidos B2B no se han sincronizado correctamente: {}".format(error_records))
+            self.log("Error", "Los siguientes pedidos no se han sincronizado correctamente: {}".format(error_records))
 
         if after_sync_error_records:
-            self.log("Error", "Los siguientes pedidos  B2B no se han marcado como sincronizados: {}".format(after_sync_error_records))
+            self.log("Error", "Los siguientes pedidos no se han marcado como sincronizados: {}".format(after_sync_error_records))
 
         return self.small_sleep
+
