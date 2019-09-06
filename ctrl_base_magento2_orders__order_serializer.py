@@ -40,13 +40,13 @@ class OrderSerializer(DefaultSerializer):
         # self.set_data_value("egenviado", False)
         self.set_string_value("codalmacen", "ALG")
         self.set_string_value("observaciones", "Pedido: " + self.init_data["increment_id"] + "\nTeléfono: " + self.init_data["shipping_address"]["telephone"])
-        self.set_string_value("mg_telefonoenv", self.init_data["shipping_address"]["telephone"])
+        # self.set_string_value("mg_telefonoenv", self.init_data["shipping_address"]["telephone"])
 
-        shipping_data = self.init_data["shipping_address"]
-        firstname = shipping_data["firstname"]
-        lastname = shipping_data["lastname"]
+        billing_data = self.init_data["billing_address"]
+        firstname = billing_data["firstname"]
+        lastname = billing_data["lastname"]
         nombre_cliente = str(firstname) + " " + str(lastname)
-        street = shipping_data["street"].split("\n")
+        street = billing_data["street"].split("\n")
         direccion = ""
         for i in range(len(street)):
             if direccion == "":
@@ -54,10 +54,10 @@ class OrderSerializer(DefaultSerializer):
             else:
                 direccion += " " + str(street[i])
 
-        city = shipping_data["city"]
-        postcode = shipping_data["postcode"]
-        region = shipping_data["region"]
-        country_id = shipping_data["country_id"]
+        city = billing_data["city"]
+        postcode = billing_data["postcode"]
+        region = billing_data["region"]
+        country_id = billing_data["country_id"]
 
         self.set_string_relation("cifnif", "cif", max_characters=20, default="-")
         self.set_string_value("nombrecliente", nombre_cliente)
@@ -66,6 +66,33 @@ class OrderSerializer(DefaultSerializer):
         self.set_string_value("ciudad", city)
         self.set_string_value("provincia", region)
         self.set_string_value("codpais", country_id)
+
+        street = self.init_data["shipping_address"]["street"].split("\n")
+        # dirtipoviaenv = street[0] if len(street) >= 1 else ""
+        # direccionenv = street[1] if len(street) >= 2 else ""
+        # dirnumenv = street[2] if len(street) >= 3 else ""
+        # dirotrosenv = street[3] if len(street) >= 4 else ""
+
+        # self.set_string_value("mg_dirtipoviaenv", dirtipoviaenv, max_characters=100)
+        self.set_string_value("mg_direccionenv", " ".join(self.init_data["shipping_address"]["street"].split("\n")), max_characters=200)
+        # self.set_string_value("mg_dirnumenv", dirnumenv, max_characters=100)
+        # self.set_string_value("mg_dirotrosenv", dirotrosenv, max_characters=100)
+
+        self.set_string_relation("mg_numseguimiento", "tracking_number", max_characters=100)
+        self.set_string_relation("mg_numcliente", "customer_id", max_characters=15)
+        self.set_string_relation("mg_email", "email", max_characters=200)
+        self.set_string_relation("mg_metodopago", "payment_method", max_characters=30)
+        self.set_string_relation("mg_metodoenvio", "shipping_description", max_characters=500)
+
+        self.set_data_relation("mg_unidadesenv", "units")
+        self.set_data_relation("mg_gastosenv", "shipping_price")
+
+        self.set_string_relation("mg_nombreenv", "shipping_address//firstname", max_characters=100)
+        self.set_string_relation("mg_apellidosenv", "shipping_address//lastname", max_characters=200)
+        self.set_string_relation("mg_codpostalenv", "shipping_address//postcode", max_characters=10)
+        self.set_string_relation("mg_ciudadenv", "shipping_address//city", max_characters=100)
+        self.set_string_relation("mg_paisenv", "shipping_address//country_id", max_characters=100)
+        self.set_string_relation("mg_telefonoenv", "shipping_address//telephone", max_characters=30)
 
         irpf = round(parseFloat(qsatype.FLUtil.quickSqlSelect("series", "irpf", "codserie = '" + codigo_serie + "'")))
         neto = parseFloat(self.init_data["grand_total"]) - parseFloat(self.init_data["tax_amount"])
