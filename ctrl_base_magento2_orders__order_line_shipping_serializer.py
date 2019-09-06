@@ -8,8 +8,8 @@ class OrderShippingLineSerializer(DefaultSerializer):
 
     def get_data(self):
         pvpunitarioiva = self.init_data["shipping_price"]
-        self.set_string_value("referencia", "art1")
-        self.set_string_value("descripcion", "Gastos de envío")
+        self.set_string_value("referencia", "gastos_envio")
+        self.set_string_value("descripcion", "Gastos de envío web")
         # self.set_string_value("barcode", "8433613403654")
         # self.set_string_value("talla", "TU")
         # self.set_string_value("color", "U")
